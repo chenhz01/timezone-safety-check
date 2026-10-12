@@ -2,6 +2,8 @@
 
 A static scanner that flags timezone-unsafe `datetime` patterns in Python source: naive constructors, offset-blind parsing, and stamping-instead-of-converting calls. Seven rules, three risk classes, zero network, pure standard library.
 
+<p align="center"><img src="docs/demo.gif" alt="demo" width="720"></p>
+
 ## Problem
 
 Naive datetimes are the classic latent production bug: code works on a UTC-deployed laptop, then a server with `TZ=America/New_York` shifts every timestamp by five hours. `datetime.utcnow()` is deprecated since Python 3.12, `strptime` without `%z` silently produces naive objects, and `.replace(tzinfo=...)` *stamps* instead of converting. Code review catches these inconsistently; a deterministic AST pass catches them every time.
